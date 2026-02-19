@@ -57,6 +57,10 @@ body{
   margin-top: 30px;
   letter-spacing: 1.8px;
   text-transform: uppercase;
+
+  /* fix: sempre centrato anche su mobile */
+  text-align: center;
+  width: 100%;
 }
 
 /* ===== Main ===== */
@@ -222,8 +226,29 @@ body{
   color:#fff;
 }
 
+/* ===== Mobile fixes ===== */
+
+/* Fix 1: non far collassare header/logo su schermi bassi */
 @media (max-height: 680px){
-  .topbar{ height: 62px; }
-  .logo{ height: 30px; }
-  .omega{ width: min(76vw, 320px); }
+  .topbar{
+    height: auto;
+    padding: 18px 16px 10px;
+  }
+  .logo{
+    height: 56px;
+  }
+  .title{
+    margin-top: 14px;
+    font-size: 26px;
+  }
+  .omega{
+    width: min(82vw, 320px);
+  }
+}
+
+/* Fix 2: modal in una colonna su mobile */
+@media (max-width: 480px){
+  .modalBody{
+    grid-template-columns: 1fr;
+  }
 }
