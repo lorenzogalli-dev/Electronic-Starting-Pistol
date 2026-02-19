@@ -13,6 +13,9 @@ const maxInput = document.getElementById("maxInput");
 const cancelBtn = document.getElementById("cancelBtn");
 const saveBtn = document.getElementById("saveBtn");
 
+// NEW
+const manualSetBtn = document.getElementById("manualSetBtn");
+
 const FILES = {
   marks: "onyourmarks.mp3",
   set: "set.mp3",
@@ -129,7 +132,9 @@ function saveConfig(cfg) {
 let cfg = loadConfig();
 
 function refreshChips() {
-  btnDelay1.textContent = cfg.d1.min === cfg.d1.max ? `+${cfg.d1.min.toFixed(1)}s` : fmtRange(cfg.d1.min, cfg.d1.max);
+  btnDelay1.textContent =
+    cfg.d1.min === cfg.d1.max ? `+${cfg.d1.min.toFixed(1)}s` : fmtRange(cfg.d1.min, cfg.d1.max);
+
   btnDelay2.textContent = fmtRange(cfg.d2.min, cfg.d2.max);
   btnDelay3.textContent = fmtRange(cfg.d3.min, cfg.d3.max);
 }
@@ -212,12 +217,40 @@ btnDelay3.addEventListener("click", () => openModal("d3"));
 
 let running = false;
 
+// NEW state flags
+let canManualSet = false;
+let manualSetChosen = false;
+
+function showManualSetButton() {
+  manualSetBtn.hidden = false;
+  manualSetBtn.disabled = false;
+  canManualSet = true;
+  manualSetChosen = false;
+}
+
+function hideManualSetButton() {
+  manualSetBtn.hidden = true;
+  manualSetBtn.disabled = true;
+  canManualSet = false;
+  manualSetChosen = false;
+}
+
+manualSetBtn.addEventListener("click", () => {
+  if (!running) return;
+  if (!canManualSet) return;
+  manualSetChosen = true;
+  manualSetBtn.disabled = true;
+  setStatus("Manual Set selected...");
+});
+
 startButton.addEventListener("click", async () => {
   if (running) return;
   running = true;
   startButton.disabled = true;
 
   try {
+    hideManualSetButton();
+
     setStatus("Loading audio...");
     await unlockAudioIOS();
 
@@ -232,13 +265,38 @@ startButton.addEventListener("click", async () => {
     const d3 = randBetween(cfg.d3.min, cfg.d3.max);
 
     setStatus("Starting...");
+
+    // Delay before On your marks
     await sleep(d1 * 1000);
     await play(aMarks);
 
-    setStatus("Waiting...");
-    await sleep(d2 * 1000);
-    await play(aSet);
+    // After On your marks, allow Manual Set during the waiting phase
+    showManualSetButton();
 
+    // Wait until either:
+    // - user presses Manual Set, OR
+    // - automatic delay d2 ends
+    setStatus("Waiting...");
+    const chosen = await Promise.race([
+      sleep(d2 * 1000).then(() => false),
+      new Promise((resolve) => {
+        const t = setInterval(() => {
+          if (manualSetChosen) {
+            clearInterval(t);
+            resolve(true);
+          }
+        }, 25);
+      }),
+    ]);
+
+    // Now play Set immediately (manual) or after d2 (auto)
+    canManualSet = false;
+    manualSetBtn.disabled = true;
+
+    await play(aSet);
+    hideManualSetButton();
+
+    // After Set, Start happens after random d3
     setStatus("Waiting...");
     await sleep(d3 * 1000);
     await play(aStart);
@@ -253,6 +311,7 @@ startButton.addEventListener("click", async () => {
       "Details: " + (e?.message || e)
     );
   } finally {
+    hideManualSetButton();
     startButton.disabled = false;
     running = false;
   }
