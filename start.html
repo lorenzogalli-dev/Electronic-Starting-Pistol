@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>KinePose Start</title>
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <img class="logo" src="kinepose.png" alt="KinePose logo" />
+      <h1 class="title">Electronic Starting Pistol</h1>
+    </div>
+  </header>
+
+  <main class="main">
+    <button id="startButton" class="omegaButton" aria-label="Start sequence">
+      <img class="omega" src="omega.png" alt="Start" />
+    </button>
+
+    <p id="status" class="status" aria-live="polite">
+      Tap the omega to start
+    </p>
+  </main>
+
+  <footer class="footer">
+    <div class="controls">
+      <button id="btnDelay1" class="chip" type="button">
+        +3.0s
+      </button>
+
+      <button id="btnDelay2" class="chip" type="button">
+        25–30s
+      </button>
+
+      <button id="btnDelay3" class="chip" type="button">
+        1.2–2.8s
+      </button>
+    </div>
+
+    <div class="credit">made by Lorenzo Galli</div>
+  </footer>
+
+  <!-- Modal -->
+  <div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modalCard">
+      <div class="modalTitle" id="modalTitle">Edit</div>
+
+      <div class="modalBody">
+        <label class="field">
+          <span class="fieldLabel">Min (seconds)</span>
+          <input id="minInput" class="fieldInput" type="number" step="0.1" min="0" />
+        </label>
+
+        <label class="field">
+          <span class="fieldLabel">Max (seconds)</span>
+          <input id="maxInput" class="fieldInput" type="number" step="0.1" min="0" />
+        </label>
+
+        <p class="modalHint" id="modalHint"></p>
+      </div>
+
+      <div class="modalActions">
+        <button id="cancelBtn" class="btnGhost" type="button">Cancel</button>
+        <button id="saveBtn" class="btnPrimary" type="button">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

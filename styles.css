@@ -1,0 +1,229 @@
+/* ===== Font locale ===== */
+@font-face {
+  font-family: 'WorldAthletics';
+  src: url('WorldAthletics.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root{
+  --bg: #ffffff;
+  --text: #0b0b0f;
+  --muted: #6b7280;
+  --shadow: 0 20px 50px rgba(0,0,0,.08);
+  --shadow2: 0 10px 25px rgba(0,0,0,.08);
+  --radius: 22px;
+}
+
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+
+body{
+  margin:0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, system-ui, Segoe UI, Roboto, Arial, sans-serif;
+  display:flex;
+  flex-direction:column;
+}
+
+/* ===== Header ===== */
+.topbar{
+  height: 192px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding: 32px 16px;
+}
+
+.brand{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap: 6px;
+}
+
+.logo{
+  height: 72px;
+  width:auto;
+  object-fit:contain;
+}
+
+.title{
+  margin:0;
+  font-family: 'WorldAthleticsHeadline', sans-serif;
+  font-size: 30px;
+  margin-top: 30px;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+}
+
+/* ===== Main ===== */
+.main{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding: 18px 18px 10px;
+  gap: 14px;
+}
+
+.omegaButton{
+  border:0;
+  background: transparent;
+  padding:0;
+  cursor:pointer;
+  outline:none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.omegaButton:disabled{
+  cursor:not-allowed;
+  opacity: .6;
+}
+
+.omega{
+  width: min(78vw, 360px);
+  height:auto;
+  display:block;
+}
+
+.status{
+  margin:0;
+  font-size: 14px;
+  color: var(--muted);
+  text-align:center;
+  max-width: 520px;
+  padding: 0 12px;
+}
+
+/* ===== Footer ===== */
+.footer{
+  padding: 10px 14px 14px;
+  display:flex;
+  flex-direction:column;
+  gap: 10px;
+}
+
+.controls{
+  display:flex;
+  justify-content:center;
+  gap: 10px;
+  flex-wrap:wrap;
+}
+
+.chip{
+  border: 1px solid rgba(0,0,0,.10);
+  background: rgba(0,0,0,.02);
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-size: 12px;
+  color: var(--text);
+  box-shadow: var(--shadow2);
+  cursor:pointer;
+}
+
+.chip:active{
+  transform: translateY(1px);
+}
+
+.credit{
+  text-align:center;
+  font-size: 11px;
+  color: rgba(0,0,0,.45);
+}
+
+/* ===== Modal ===== */
+.modal{
+  position:fixed;
+  inset:0;
+  background: rgba(0,0,0,.20);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding: 18px;
+}
+
+.modal.isOpen{
+  display:flex;
+}
+
+.modalCard{
+  width: min(520px, 100%);
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 16px;
+}
+
+.modalTitle{
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.modalBody{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.field{
+  display:flex;
+  flex-direction:column;
+  gap: 6px;
+}
+
+.fieldLabel{
+  font-size: 12px;
+  color: rgba(0,0,0,.60);
+}
+
+.fieldInput{
+  border: 1px solid rgba(0,0,0,.12);
+  border-radius: 14px;
+  padding: 10px 12px;
+  font-size: 14px;
+  outline:none;
+}
+
+.fieldInput:focus{
+  border-color: rgba(0,0,0,.35);
+}
+
+.modalHint{
+  grid-column: 1 / -1;
+  margin: 0;
+  font-size: 12px;
+  color: rgba(0,0,0,.55);
+}
+
+.modalActions{
+  display:flex;
+  justify-content:flex-end;
+  gap: 10px;
+}
+
+.btnGhost, .btnPrimary{
+  border-radius: 14px;
+  padding: 10px 14px;
+  font-size: 13px;
+  cursor:pointer;
+  border: 1px solid rgba(0,0,0,.12);
+  background:#fff;
+}
+
+.btnPrimary{
+  border-color: rgba(0,0,0,.12);
+  background: rgba(0,0,0,.92);
+  color:#fff;
+}
+
+@media (max-height: 680px){
+  .topbar{ height: 62px; }
+  .logo{ height: 30px; }
+  .omega{ width: min(76vw, 320px); }
+}
