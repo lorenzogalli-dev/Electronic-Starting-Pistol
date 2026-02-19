@@ -106,7 +106,7 @@ function loadConfig() {
     return {
       d1: { min: 3.0, max: 3.0 },
       d2: { min: 25.0, max: 30.0 },
-      d3: { min: 1.2, max: 2.8 },
+      d3: { min: 1.8, max: 2.8 },
     };
   }
   try {
@@ -114,13 +114,13 @@ function loadConfig() {
     return {
       d1: cfg?.d1 ?? { min: 3.0, max: 3.0 },
       d2: cfg?.d2 ?? { min: 25.0, max: 30.0 },
-      d3: cfg?.d3 ?? { min: 1.2, max: 2.8 },
+      d3: cfg?.d3 ?? { min: 1.8, max: 2.8 },
     };
   } catch {
     return {
       d1: { min: 3.0, max: 3.0 },
       d2: { min: 25.0, max: 30.0 },
-      d3: { min: 1.2, max: 2.8 },
+      d3: { min: 1.8, max: 2.8 },
     };
   }
 }
