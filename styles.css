@@ -58,7 +58,6 @@ body{
   letter-spacing: 1.8px;
   text-transform: uppercase;
 
-  /* fix: sempre centrato anche su mobile */
   text-align: center;
   width: 100%;
 }
@@ -92,6 +91,27 @@ body{
   width: min(78vw, 360px);
   height:auto;
   display:block;
+}
+
+/* NEW: Manual Set button style */
+.manualSetBtn{
+  border: 1px solid rgba(0,0,0,.10);
+  background: rgba(0,0,0,.02);
+  border-radius: 999px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: var(--text);
+  box-shadow: var(--shadow2);
+  cursor: pointer;
+}
+
+.manualSetBtn:active{
+  transform: translateY(1px);
+}
+
+.manualSetBtn:disabled{
+  cursor: not-allowed;
+  opacity: .6;
 }
 
 .status{
@@ -227,8 +247,6 @@ body{
 }
 
 /* ===== Mobile fixes ===== */
-
-/* Fix 1: non far collassare header/logo su schermi bassi */
 @media (max-height: 680px){
   .topbar{
     height: auto;
@@ -246,7 +264,6 @@ body{
   }
 }
 
-/* Fix 2: modal in una colonna su mobile */
 @media (max-width: 480px){
   .modalBody{
     grid-template-columns: 1fr;
